@@ -1,0 +1,11 @@
+# credentials
+*.env
+
+# temporal
+tmp
+
+# dependencies
+.venv
+
+# compiles
+__pycache__
