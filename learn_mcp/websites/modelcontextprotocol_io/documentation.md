@@ -99,10 +99,8 @@
 
 # Example clients
 ## Feature support matrix
-- [2]
 - A table of report about a client whether it supports resources, prompts, tools, sampling, roots
 ## Client details
-- [2]
 - Name clients and their features
 ## Adding MCP support to your application
 - Encourage create PRs to MCP organization to build a MCP ecosystem
@@ -150,4 +148,3 @@
 
 # References
 - [1] https://modelcontextprotocol.io/introduction
-- [2] https://modelcontextprotocol.io/clients
