@@ -108,10 +108,31 @@
 - Encourage create PRs to MCP organization to build a MCP ecosystem
 
 # Building MCP with LLMs
+- Recommend how to use Claude to build MCP
 
 # Debugging
+## Debugging tools overview
+- Can use these tools to debug MCP
+    - MCP inspector
+    - Claude desktop developer tools
+    - Server logging
+- Learn more some levels of debugging
+## Debugging in Claude Desktop
+- Can use these ways to debug MCP
+    - Server status
+    - Viewing log
+     - Chrome DevTools
+## Common issues
+## Implementing logging
+## Debugging workflow
+## Best practices
 
 # Inspector
+- For test and debug
+## Getting started
+## Feature overview
+## Best practices
+## Next steps
 
 # Core architecture
 
@@ -127,14 +148,6 @@
 
 # Transports
 
-# What's new
-- [3]
-
-# Roadmap
-- [4]
-
 # References
 - [1] https://modelcontextprotocol.io/introduction
 - [2] https://modelcontextprotocol.io/clients
-- [3] https://modelcontextprotocol.io/development/updates
-- [4] https://modelcontextprotocol.io/development/roadmap
