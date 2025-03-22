@@ -133,13 +133,59 @@
 ## Next steps
 
 # Core architecture
+## Overview
+- Client server architecture
+    - Hosts
+    - Clients
+    - Servers
+- Core components
+    - Protocol layer (protocol, client, server)
+    - Transport layer (stdio transport, HTTP/SSE transport)
+    - Message type (requests, responses, errors, notifications)
+- Connection lifecycle
+    - Initialize
+    - Message exchange
+    - Termination
+    - Error handling
 
 # Resources
+## Overview
+- File contents, database records, API responses, live system data, screenshots and images, log files and more
+## Resource URIs
+## Resource types
+- Text sources
+- Binary sources
+## Resource discovery
+- Direct resources
+- Resource templates
+## Reading resources
+## Resource updates
+- List changes
+- Content changes
 
 # Prompts
+## Prompt structure
+## Discovering prompts
+## Using prompts
+## Dynamic prompts
+### Embedded resource context
+### Multi-step workflows
+## Updates and changes
 
 # Tools
-
+## Overview
+- Discovery
+- Invocation
+- Flexibility
+## Tool definition structure
+## Implementing tools
+## Example tool patterns
+- System operations
+- API integrations
+- Data processing
+## Tool discovery and updates
+## Error handling
+# 
 # Samping
 
 # Roots
