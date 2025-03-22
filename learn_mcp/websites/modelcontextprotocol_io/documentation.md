@@ -138,15 +138,17 @@
     - Hosts
     - Clients
     - Servers
-- Core components
+## Core components
     - Protocol layer (protocol, client, server)
     - Transport layer (stdio transport, HTTP/SSE transport)
     - Message type (requests, responses, errors, notifications)
-- Connection lifecycle
+## Connection lifecycle
     - Initialize
     - Message exchange
     - Termination
     - Error handling
+## Error handling
+## Security considerations
 
 # Resources
 ## Overview
@@ -162,6 +164,7 @@
 ## Resource updates
 - List changes
 - Content changes
+## Security considerations
 
 # Prompts
 ## Prompt structure
@@ -171,6 +174,7 @@
 ### Embedded resource context
 ### Multi-step workflows
 ## Updates and changes
+## Security considerations
 
 # Tools
 ## Overview
@@ -183,14 +187,51 @@
 - System operations
 - API integrations
 - Data processing
+## Security considerations
 ## Tool discovery and updates
 ## Error handling
-# 
+## Testing tools
+
 # Samping
+## How sampling works
+## Message format
+## Request parameters
+### Messages
+### Model preferences
+### System prompt
+### Context inclusion
+### Sampling parameters
+## Response format
+## Example request
+## Human in the loop controls
+- For prompts
+- For completions
+- For prompt
+## Security considerations
+## Common patterns
+### Agentic workflows
+### Context management
+### Error handling
+## Limitations
 
 # Roots
+## What are Roots?
+## Why useroots?
+## How Roots Work
+## Common Use Cases
 
 # Transports
+## Message Format
+- Request
+- Response
+- Notification
+## Built-in Transport Types
+- Standard Input/Output (stdio)
+- Server-Sent Events (SSE)
+##  Custom Transports
+## Error Handling
+## Security Considerations
+## Debugging Transport
 
 # References
 - [1] https://modelcontextprotocol.io/introduction
