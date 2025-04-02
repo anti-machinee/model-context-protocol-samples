@@ -7,8 +7,6 @@
 ## Analyze MCP
 - [x] Learn official MCP documents
 - [] Analyze MCP source code
-- [] Analye
-- [] Analyze published samples in MCP organization
 - [] Analyze published samples in Github
 - [] Analyze current issues
 - [] Create technical questions

@@ -7,6 +7,7 @@
 ## Literal
 ## Generic
 ## Any
+## Awaitable
 
 # collections
 ## Callable
@@ -17,6 +18,7 @@
 
 # contextlib
 ## asynccontextmanager
+## AsyncExitStack
 
 # References
 - [1] https://docs.python.org/3/library

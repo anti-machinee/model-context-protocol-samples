@@ -25,7 +25,7 @@
 ### Instance attributes
 - settings
     - Read settings above
-- _mcp_server
+- _mcp_server (private attribute)
     - To encapsulate the core functionality of the MCP server
     - To expose attributes via properties for user friendly access while keeping the low-level details encapsulated
     - To set up core MCP protocol handlers
@@ -33,17 +33,16 @@
     - To run server using stdio transport
     - To handle sse messages
     - To create initialization options
-- _tool_manager
+- _tool_manager (private attribute)
     - To list/call/add tools
-- _resource_manager
+- _resource_manager (private attribute)
     - To list/get/add resources/templates
-- _prompt_manager
+- _prompt_manager (private attribute)
     - To list/get/add prompts
-- dependencies
+- dependencies (private attribute)
     - To install dependencies (by uv)
 ### Method calls
 - _setup_handlers
-    - 
 ### Function calls
 - configure_logging
     - Configure logging
