@@ -267,6 +267,133 @@
 ### Actions
 - Use prompt manager to add prompt
 
+# lifespan_wrapper
+- a utility function that wraps a custom lifespan context manager for the server
+- It ensures that the custom lifespan logic is properly integrated with the server's lifecycle, allowing developers to define custom startup and shutdown behavior for the server
+## Arguments
+- app
+    - The FastMCP server instance for which the lifespan is being wrapped.
+    - This allows the custom lifespan to access the server instance and its settings
+- lifespan 
+    - A callable that defines the custom lifespan logic.
+    - It takes the FastMCP instance as input and returns an asynchronous context manager
+## wrap
+- The wrap function is an asynchronous context manager that integrates the custom lifespan with the MCPServer
+- Executes the custom lifespan logic, passing the FastMCP instance (app) to it
+- The context returned by the custom lifespan is yielded to the MCPServer
+- Passes the lifespan's context to the MCPServer, allowing it to manage the server's lifecycle
+## Usages
+- Custom Lifespan Management
+    - Developers can define custom startup and shutdown logic for the server using a lifespan context manager.
+- Wrapping the Lifespan for MCPServer
+    - The lifespan_wrapper function is used internally by the FastMCP class to wrap the custom lifespan and pass it to the MCPServer
+- Managing Server Lifecycle
+    - The lifespan_wrapper ensures that the custom lifespan logic is executed during the server's startup and shutdown phases.
+    - Example:
+        - During startup, the custom lifespan logic is executed before the server starts handling requests.
+        - During shutdown, the custom lifespan logic is executed after the server stops handling requests.
+## What are usages of Callable and AbstractAsyncContextManager
+- The Callable type hint specifies that the lifespan parameter must be a function that takes specific arguments and returns a certain type.
+- Callable[[FastMCP], AbstractAsyncContextManager[LifespanResultT]] means:
+    - The lifespan parameter must be a callable (function) that:
+    - Takes a single argument of type FastMCP.
+    - Returns an AbstractAsyncContextManager object that manages an asynchronous context with a generic type LifespanResultT (likely the result of some lifecycle-related operation).
+- AbstractAsyncContextManager [from contextlib]:
+    - An AbstractAsyncContextManager is part of Python's asynchronous context management system. It represents objects that can be used in async with blocks to manage asynchronous resources.
+    - It means that the function is expected to return an asynchronous context manager that can yield a result of type LifespanResultT when used with async with
+
+# _convert_to_content
+- the result of a tool or resource is converted into a standardized format that can be sent to clients
+## Arguments
+- result
+    - The result of a tool or resource operation
+## Actions
+- Converts various result types into a sequence of TextContent, ImageContent, or EmbeddedResource objects
+- Supports mixed content by handling lists or tuples containing mixed content types
+- Converts custom objects to JSON or string representations
+
 # Settings
+- defines the configuration settings for the server. 
+- It uses Pydantic's BaseSettings to enable easy configuration via environment variables, .env files, or directly in code. 
+- This class provides a structured way to manage server settings, including debugging, logging, HTTP configuration, and resource/tool/prompt management
+## Parent classes
+- BaseSettings
+- Generic
+## Attributes
+- The Settings class centralizes all configuration options for the FastMCP server.
+- It allows settings to be configured via:
+    - Environment variables (with the prefix FASTMCP_).
+    - A .env file.
+    - Directly in code when initializing the FastMCP server.
+- Server Settings
+    - debug
+    - log_level
+    - http settings (host, port, sse_path, message_path)
+    - warning duplicated tools/resources/prompts
+    - dependencies
+    - lifespan
+        - A callable that defines a lifespan context manager for the server
+        - A custom lifespan can be provided to manage server startup and shutdown logic
 
 # Context
+- used in various scenarios to provide access to the server's capabilities and request-specific metadata
+- The Context class in the FastMCP server provides a structured interface for accessing request-specific data and server capabilities during the execution of tools, resources, or other server-side operations. It is injected into tool and resource functions when requested via type annotations, enabling developers to interact with the server's features such as logging, progress reporting, and resource access.
+- The Context class is a utility wrapper around the RequestContext and FastMCP server. It simplifies access to common MCP server functionalities and enforces proper usage within the scope of a request. Its design promotes clean and modular tool and resource functions by abstracting away low-level details. 
+## Parent classes
+- BaseModel
+- Generic
+    - ServerSessionT
+    - LifespanContextT
+## Private attributes
+- _request_context
+    - Contain metadata and session information about the current request
+- _fastmcp
+    - Holds a reference to the FastMCP server instance.
+## __init__
+### Arguments
+- request_context
+    - Read _request_context above 
+- fastmcp
+    - Read _fastmcp above
+- kwargs
+## properties
+### fastmcp
+- Provide access to private attribute _fastmcp
+### request_context
+- Provide access to private attribute _request_context
+### client_id
+- Retrieves the client ID from the request metadata, if available
+### request_id
+- Retrieves the unique ID for the current request
+### session
+- Provides access to the underlying session object for advanced usage.
+## report_progress
+### Arguments
+- progress
+    - The current progress value
+- total
+    - The optional total value
+### Actions
+- Uses the progressToken from the request metadata to send a progress notification via the session
+## read_resource
+### Arguments
+- uri
+    - The URI of the resource to read
+### Actions
+- Reads a resource by its URI using the FastMCP server instance.
+## log
+### Arguments
+- level
+    - log level
+- message
+    - log message
+- logger_name
+    - The name of the logger to use
+### Actions
+- Sends a log message to the client at the specified log level
+## debug/info/warning/error
+### Arguments
+- message
+    - log message
+### Actions
+- Sends a debug/info/warning/error-level log message

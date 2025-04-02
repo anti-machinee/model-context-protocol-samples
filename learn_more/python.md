@@ -5,10 +5,18 @@
 
 # typing
 ## Literal
-- [1]
+## Generic
+## Any
+
+# collections
+## Callable
+## Sequence
 
 # inspect
 ## signature
 
+# contextlib
+## asynccontextmanager
+
 # References
-- [1] https://docs.python.org/3/library/typing.html
+- [1] https://docs.python.org/3/library
