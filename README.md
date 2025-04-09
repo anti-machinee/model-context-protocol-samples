@@ -5,8 +5,7 @@
 
 # Check List
 ## Analyze MCP
-- [x] Learn official MCP documents
-- [] Analyze MCP source code
+- [] Analyze Python SDK source code
 - [] Analyze published samples in Github
 - [] Analyze current issues
 - [] Create technical questions
