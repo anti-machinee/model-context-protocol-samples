@@ -23,4 +23,4 @@
 
 # References
 - [1] https://docs.python.org/3/library
-- [2] https://docs.python.org/3/library/contextlib.html
+- [2] https://book.pythontips.com/en/latest/index.html

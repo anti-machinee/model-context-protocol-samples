@@ -189,3 +189,82 @@ _in_flight
 - progress_token
 - progress
 - total
+
+# RequestResponder
+## Usages
+- manage the lifecycle of requests in the Model Context Protocol (MCP) framework. It provides methods to respond to, cancel, and track the status of requests
+- The context manager ensures:
+    - Proper setup and cleanup of the cancellation scope.
+    - Tracking of request completion.
+    - Cleanup of in-flight requests
+
+## Parent classes
+### Generic
+- Enable type safe generic programming
+- allows the RequestResponder to handle requests and responses of different types while maintaining flexibility and type safety
+
+## __init__
+- Tracking the Request: Storing the request ID, metadata, and the actual request object.
+- Linking to the Session: Associating the responder with the session that received the request.
+- Lifecycle Management: Setting up mechanisms to track the completion or cancellation of the request.
+- Cleanup: Defining a callback (on_complete) to clean up resources when the request is completed.
+### Arguments
+- request_id
+    - The unique identifier for the request. This ID is used to link the request with its corresponding response
+- request_meta
+    - Metadata associated with the request, such as additional context or parameters
+- request
+    - The actual request object, which contains the details of the request
+- session
+    - The session that received the request. This allows the RequestResponder to send responses or cancel the request via the session.
+- on_complete
+    - A callback function that is invoked when the request is completed. This is typically used to clean up in-flight request
+
+## Properties
+### in_flight
+- determine whether a request is still active (i.e., in-flight). It provides a simple way to check the state of the request by combining two conditions: whether the request has been completed and whether it has been canceled.
+### cancelled
+- determine whether the request has been canceled. It provides a simple way to check the cancellation status of a request by inspecting the associated CancelScope
+
+## __enter__
+- set up the necessary state and resources when the RequestResponder is entered as a context manager.
+### Actions
+- Enable Context Management: Allow the RequestResponder to be used with a with statement for proper setup and cleanup.
+- Set Up Cancellation Scope: Initialize and enter an anyio.CancelScope to manage request cancellation.
+- Track Context Entry: Mark the RequestResponder as "entered" to ensure it is used correctly within a context manager.
+
+## __exit__
+- It is called when the RequestResponder is exited using a with statement. This method ensures proper cleanup of resources and notifies the session that the request has been completed
+### Actions
+- If the request has been marked as completed (self._completed = True), the on_complete callback is invoked. This callback is typically used to remove the request from the session's _in_flight dictionary.
+- Marks the RequestResponder as no longer being used within a context manager.
+- Ensures that a valid CancelScope exists before attempting to exit it. Raises a RuntimeError if no active CancelScope is found.
+- Exits the CancelScope, ensuring that any cancellation logic is properly handled. Passes any exceptions raised within the with block (exc_type, exc_val, exc_tb) to the CancelScope.
+
+## respond
+- send a response for a specific request. It ensures that the response is sent only once, within a valid context, and only if the request has not been canceled
+- Send a Response: Send a response (success or error) for the associated request.
+- Ensure Single Response: Prevent multiple responses for the same request by marking it as completed after the first response.
+- Validate Context: Ensure that the method is called within a valid context manager block.
+- Handle Cancellation: Avoid sending a response if the request has already been canceled.
+### Arguments
+- response
+### Actions
+- Ensures that the respond method is called within a with or async with block. Raises a RuntimeError if the RequestResponder is not being used as a context manager.
+- Ensures that the request has not already been responded to. Raises an AssertionError if a response has already been sent.
+- Ensures that the request has not been canceled before sending the response. If the request is canceled, no response is sent.
+- Marks the request as completed to prevent further responses.
+- Calls the _send_response method of the associated session to send the response. The response can be either a success (SendResultT) or an error (ErrorData).
+
+## cancel
+- cancel a request and mark it as completed. It ensures that the request is properly canceled, removed from the session's in-flight requests, and sends an error response indicating the cancellation
+- Cancel the Request: Stop any ongoing processing of the request by invoking the cancellation scope.
+- Mark the Request as Completed: Ensure the request is marked as completed so it is removed from the session's in-flight requests.
+- Send an Error Response: Notify the client or server that the request has been canceled by sending an error response.
+- Ensure Proper Context Usage: Validate that the method is called within a valid context manager block.
+### Actions
+- Ensures that the cancel method is called within a with or async with block. Raises a RuntimeError if the RequestResponder is not being used as a context manager.
+- Ensures that a valid CancelScope exists before attempting to cancel the request. Raises a RuntimeError if no active CancelScope is found.
+- Invokes the cancel method of the CancelScope to stop any ongoing processing of the request.
+- Marks the request as completed to ensure it is removed from the session's in-flight requests.
+- Sends an error response to notify the client or server that the request has been canceled. The response includes an ErrorData object with a cancellation message.
