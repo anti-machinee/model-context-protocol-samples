@@ -77,6 +77,11 @@
     - Messages sent by the server are written to write_stream and read from write_stream_reader.
 - Generates a unique session ID using uuid4. Constructs a session-specific URI for the client to send POST messages. Stores the read_stream_writer in _read_stream_writers with the session ID as the key.
 - Creates an EventSourceResponse to handle the SSE connection. Starts the SSE response task in a task group. Yields the read_stream and write_stream to allow the calling code to interact with the streams.
+### What are usages of asynccontextmanager
+- The @asynccontextmanager decorator, imported from Python's contextlib module, is used to define asynchronous context managers in a concise and readable way. It simplifies the creation of context managers that need to perform setup and cleanup operations in asynchronous code
+- Simplifies Context Manager Creation: Instead of creating a full class with __aenter__ and __aexit__ methods, you can use a generator function to define the setup and cleanup logic.
+- Manages Resources: Ensures that resources (e.g., streams, connections, tasks) are properly initialized and cleaned up, even if an exception occurs within the context.
+- Asynchronous Support: Allows the use of async with to manage asynchronous resources, enabling the use of await within the context manager.
 ### Why this code does not assign value to variables (var: type)
 - Type Annotations Only
     - The variables are declared with type annotations to specify the expected types of the variables.
