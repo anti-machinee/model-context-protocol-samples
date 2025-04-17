@@ -1,9 +1,10 @@
-import click
-from pathlib import Path
-import logging
 import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent))  # ISSUE1
+import click
+import logging
 
-from .server import serve
+from server import serve
 
 @click.command()
 @click.option("--repository", "-r", type=Path, help="Git repository path")

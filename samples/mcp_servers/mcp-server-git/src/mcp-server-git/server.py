@@ -13,9 +13,9 @@ from mcp.types import (
 )
 import git
 
-from .models import *
-from .enums import *
-from .functions import *
+from models import *
+from enums import *
+from functions import *
 
 
 async def serve(repository: Path | None) -> None:
