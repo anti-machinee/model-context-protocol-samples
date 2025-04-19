@@ -8,7 +8,6 @@
         - [x] with Python module
     - [x] uvx command
         - [x] with Python package
-        - [x] with Python file -> error
     - [x] uv command
         - [x] with Python file
     - [x] docker command

@@ -1,4 +1,23 @@
 # Check list
+- [x] Setup
+    - [x] uv
+    - [] pip
+    - [] docker
+- [x] Deploy with Claude desktop
+    - [x] Python command
+        - [] with Python module
+    - [] uvx command
+        - [] with Python package
+    - [] uv command
+        - [] with Python file
+    - [] docker command
+        - [] with Python project
+- [] Deploy with Zed
+- [x] Debug
+    - [x] Log
+    - [] Inspector
+- [x] Test
+    - [] Pytest
 
 # Setup project
 ## uv
@@ -22,7 +41,7 @@ docker exec -it my-postgres /bin/bash
 ```
 - Setup database
 ```bash
-psql -U myuser -d mydatabase
+psql postgresql://myuser:mypassword@localhost:5432/mydatabase
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
